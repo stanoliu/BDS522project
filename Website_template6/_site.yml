@@ -1,0 +1,16 @@
+name: "BDS-522 Project"
+output_dir: "."
+navbar:
+  title: "The PAS Effect"
+  left:
+    - text: "Introduction"
+      href: index.html
+    - text: "Data and Methods"
+      href: data.html
+    - text: "Results"
+      href: results.html
+    - text: "Conclusions"
+      href: conclusions.html
+    - text: "General Comments"
+      href: comments.html
+      
