@@ -1,14 +1,37 @@
 ---
-title: "Data"
+title: "Data and Methods"
 ---
+# Descriptive Analysis
+Below is the area right outside the catchment.  The data was scrapped from redfin.com.  Filters were set to capture the following variables:  Price.Sold (how much the house was sold for), Bed (number of bedrooms), Bath (number of bathrooms), sqft (square footage of house), catchment (1 = inside PAS catchment / 0 = outside of catchment).  The data is for the last 3 years.  There are 397 observations.  197 inside the catchment and 200 outside the catchment.  
 
-Whatup?
+![Outside the PAS Catchment](images/outsite.png){width=50%}
+
 ```{r}
+summary(Price.Sold[catchment=="0"])
 
-vector<-c(1,11,1,13,4,5)
-vector2<-c(2,3,4,5,6,7)
+summary(Price.Sold[catchment=="1"])
+```
+From running a summary command between the two catchment groups, you can tell that the average price of a home in the catchment is more than a home outside the catchment.
 
-mean(vector)
-plot(vector, vector2)
+```{r}
+boxplot(Price.Sold ~ catchment, main="Boxplot Price.Sold In and Out of Catchment", ylab="Price.Sold", xlab="Catchment")
+```
+
+The Boxplots tell the same story, but from a visual standpoint and highlight the median and the IQR.
+
+```{r}
+boxplot(sqft ~ catchment, main="Boxplot of Sqft of Property In and Out of Catchment", ylab ="sqft", xlab ="Catchment")
 
 ```
+
+Examining this boxplot helps us to understand how both groups compare in terms of the size of the properties.  If the size of the property has an effect on the price, then we should look at the size of the properties in each group.  The sqft seem to be comparable, with group 1 being larger, so homes in the catchment are slightly larger.  
+
+
+
+# Empirical Analysis
+```{r}
+redfinlm<-lm(Price.Sold ~ Bed + Bath + sqft + catchment, data=redfin)
+summary(redfinlm)
+
+```
+

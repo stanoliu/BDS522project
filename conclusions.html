@@ -11,7 +11,7 @@
 
 
 
-<title>Data and Methods</title>
+<title>Conclusions</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -207,58 +207,12 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Data and Methods</h1>
+<h1 class="title toc-ignore">Conclusions</h1>
 
 </div>
 
 
-<div id="descriptive-analysis" class="section level1">
-<h1>Descriptive Analysis</h1>
-<p>Below is the area right outside the catchment. The data was scrapped from redfin.com. Filters were set to capture the following variables: Price.Sold (how much the house was sold for), Bed (number of bedrooms), Bath (number of bathrooms), sqft (square footage of house), catchment (1 = inside PAS catchment / 0 = outside of catchment). The data is for the last 3 years. There are 397 observations. 197 inside the catchment and 200 outside the catchment.</p>
-<div class="figure">
-<img src="images/outsite.png" alt="Outside the PAS Catchment" style="width:50.0%" />
-<p class="caption">Outside the PAS Catchment</p>
-</div>
-<pre class="r"><code>summary(Price.Sold[catchment==&quot;0&quot;])</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   12100  270000  338995  362875  446250 1545000</code></pre>
-<pre class="r"><code>summary(Price.Sold[catchment==&quot;1&quot;])</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##  225000  401000  518000  522414  620000 1325000</code></pre>
-<p>From running a summary command between the two catchment groups, you can tell that the average price of a home in the catchment is more than a home outside the catchment.</p>
-<pre class="r"><code>boxplot(Price.Sold ~ catchment, main=&quot;Boxplot Price.Sold In and Out of Catchment&quot;, ylab=&quot;Price.Sold&quot;, xlab=&quot;Catchment&quot;)</code></pre>
-<p><img src="data_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<p>The Boxplots tell the same story, but from a visual standpoint and highlight the median and the IQR.</p>
-<pre class="r"><code>boxplot(sqft ~ catchment, main=&quot;Boxplot of Sqft of Property In and Out of Catchment&quot;, ylab =&quot;sqft&quot;, xlab =&quot;Catchment&quot;)</code></pre>
-<p><img src="data_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<p>Examining this boxplot helps us to understand how both groups compare in terms of the size of the properties. If the size of the property has an effect on the price, then we should look at the size of the properties in each group. The sqft seem to be comparable, with group 1 being larger, so homes in the catchment are slightly larger.</p>
-</div>
-<div id="empirical-analysis" class="section level1">
-<h1>Empirical Analysis</h1>
-<pre class="r"><code>redfinlm&lt;-lm(Price.Sold ~ Bed + Bath + sqft + catchment, data=redfin)
-summary(redfinlm)</code></pre>
-<pre><code>## 
-## Call:
-## lm(formula = Price.Sold ~ Bed + Bath + sqft + catchment, data = redfin)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -760019  -68349    8023   65711  518439 
-## 
-## Coefficients:
-##              Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 1.389e+05  1.618e+04   8.586  &lt; 2e-16 ***
-## Bed         1.341e+03  5.324e+03   0.252    0.801    
-## Bath        4.164e+04  6.993e+03   5.954 5.81e-09 ***
-## sqft        6.276e+01  8.827e+00   7.110 5.54e-12 ***
-## catchment1  1.034e+05  1.319e+04   7.841 4.27e-14 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 127400 on 392 degrees of freedom
-## Multiple R-squared:  0.5404, Adjusted R-squared:  0.5358 
-## F-statistic: 115.3 on 4 and 392 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
+
 
 
 
