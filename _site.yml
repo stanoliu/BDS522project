@@ -11,6 +11,5 @@ navbar:
       href: results.html
     - text: "Conclusions"
       href: conclusions.html
-    - text: "General Comments"
-      href: comments.html
+    
       

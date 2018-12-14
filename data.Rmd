@@ -2,16 +2,24 @@
 title: "Data and Methods"
 ---
 # Descriptive Analysis
-Below is the area right outside the catchment.  The data was scrapped from redfin.com.  Filters were set to capture the following variables:  Price.Sold (how much the house was sold for), Bed (number of bedrooms), Bath (number of bathrooms), sqft (square footage of house), catchment (1 = inside PAS catchment / 0 = outside of catchment).  The data is for the last 3 years.  There are 397 observations.  197 inside the catchment and 200 outside the catchment.  
+Below are the maps of the areas that are being compared.  The data was scrapped from redfin.com.  Filters were set to capture the following variables:  Price.Sold (how much the house was sold for), Bed (number of bedrooms), Bath (number of bathrooms), sqft (square footage of house), catchment (1 = inside PAS catchment / 0 = outside of catchment).  The data is for the last 3 years.  There are a total of 397 observations.  197 inside the catchment and 200 outside the catchment.  
 
-![Outside the PAS Catchment](images/outsite.png){width=50%}
+![PAS Catchment Map-redfin.com](images/pasmap.png){width=50%} 
+
+![Outside the PAS Catchment-redfin.com](images/outsite.png){width=50%}
+
 
 ```{r}
 summary(Price.Sold[catchment=="0"])
 
 summary(Price.Sold[catchment=="1"])
 ```
-From running a summary command between the two catchment groups, you can tell that the average price of a home in the catchment is more than a home outside the catchment.
+From running a summary command between the two catchment groups, you can tell that the average price of a home in the catchment is more than a home outside the catchment.  Interesting point of data is that the most expensive property sold was outside the catchment at $1.5 million.  
+
+```{r}
+t.test(Price.Sold~catchment)
+```
+The Welch two sample t-test gives us the average home price outside of the catchment and inside the catchment.  The ouside average price is $362,875 while inside the catchment is $522,423.  The P-value is statistically significant.
 
 ```{r}
 boxplot(Price.Sold ~ catchment, main="Boxplot Price.Sold In and Out of Catchment", ylab="Price.Sold", xlab="Catchment")
@@ -21,10 +29,10 @@ The Boxplots tell the same story, but from a visual standpoint and highlight the
 
 ```{r}
 boxplot(sqft ~ catchment, main="Boxplot of Sqft of Property In and Out of Catchment", ylab ="sqft", xlab ="Catchment")
-
 ```
 
 Examining this boxplot helps us to understand how both groups compare in terms of the size of the properties.  If the size of the property has an effect on the price, then we should look at the size of the properties in each group.  The sqft seem to be comparable, with group 1 being larger, so homes in the catchment are slightly larger.  
+While on average, the prices are higher for group 1 (in the catchment), this is not always the case as there is overlap between the two distributions.  The following section will use a regression model to test this out more formally.  It might give us more insight as to how each explanatory variable account for the overall price of the property.
 
 
 
@@ -32,6 +40,6 @@ Examining this boxplot helps us to understand how both groups compare in terms o
 ```{r}
 redfinlm<-lm(Price.Sold ~ Bed + Bath + sqft + catchment, data=redfin)
 summary(redfinlm)
-
 ```
 
+I chose the these explanatory variables, to be in line with other research papers that discuss housing value.  They were also Redfin's default categories while doing a search which made it much easier to scrape.  Since the intercept coefficient value doesn't tell us very much, and often doesn't, we'll skip that coefficient and go straight to the Bed coefficient.  For every unit increase in Bed, our Price.Sold value will go up $1,341.  Interestingly enought, Bathroom seem to be important in this model more than Bedrooms.  For every unit increase in Bathrooms, the Price.Sold increases by $41,640.  When the total sqft increases by one unit, it moves the Price.Sold up by $62.76.  And finally, when inside the catchment, houses seem to be worth $103,400 more.

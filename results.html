@@ -192,9 +192,6 @@ $(document).ready(function () {
 <li>
   <a href="conclusions.html">Conclusions</a>
 </li>
-<li>
-  <a href="comments.html">General Comments</a>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -212,7 +209,10 @@ $(document).ready(function () {
 </div>
 
 
-
+<p>The results of the analysis indicate that there is a positive difference in housing price when purchasing a home in the catchment compared to outside of the catchment. The full story of the of what constitutes housing prices is incomplete in the regression model, so there are limitations to the analysis. There are many more independent or explanatory variables to consider. For example, parking in a garage or driveway would be a variable that was not included in the regression. Another example might be proximity to public transportation. These are examples of variables that can make housing prices increase. Another thought would be to look at crime rate in the area and understand how those might negatively affect the housing prices. Proximity to main roads might also affect home prices negatively. In running some correlation tests between the variables, the strongest association that was found was between Bed and sqft. at .7416.</p>
+<pre class="r"><code>cor(Bed,sqft)</code></pre>
+<pre><code>## [1] 0.7415807</code></pre>
+<p>I wouldn’t consider them confounding to the dependent variable, because what we’re trying to understand is the relationship between Price.Sold and catchment. Being in the catchment doesn’t automatically make your property larger or have more Bedrooms. The architecture and style of homes are very consistent throughout the neighborhood.</p>
 
 
 

@@ -2,3 +2,12 @@
 title: "Conclusions"
 ---
 
+The null hypothesis that the average price of homes in and outside of the catchment should be equal should be rejected.  I found that houses inside the catchment can be higher by $103k controlling for number of Bedrooms, Bathrooms, and square footage.  The P-value for catchment was significant with an alph of .05 or even a .01.  
+The implications for the results unfortunately are not good for long-time local residents of the neighborhood who are looking for affordable housing.  There are more and more people with families that are looking for good public schools to send their children to.  They are people with means and are looking to move into the catchment.  This, in turn, will make it harder and harder for affordable housing conditions to exist. 
+
+
+
+
+#Other Considerations 
+For future expansion of the project, I'd like to get the date sold data for each of the homes.  That will help us to analyze the progression through the past 3 years.  There may be general housing trends to analyze and account for.  Acquiring the parking situation data for the houses would be another independent variable that should be included in the regression model.   Street parking is becoming an issue in the area and having a garage or a designated space should affect the cost of the house.  Another consideration is to analyze properties that are across the street from each other where the border of the catchment is to understand a more targeted effect of the relationship.  Doing it this way would drastically change the number of observations because there would be a smaller number of homes available.
+Data management and cleaning was difficult.  Since the data was scraped, that process introduced a lot of empty data points.  Most of them were for the number of Bedrooms and Bathrooms.  For the missing data, I manually searched other sites like zillow.com and realtor.com to reconsile the correct numbers.  I also used redfin data to find out if the houses were similar to one next door, I had to approximate the number of Bedrooms and Baths based on the neighboring house.  That was done for about 25 homes, which took a considerable amount of time.  
