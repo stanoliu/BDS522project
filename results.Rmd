@@ -3,9 +3,23 @@ title: "Results"
 ---
 
 The results of the analysis indicate that there is a positive difference in housing price when purchasing a home in the catchment compared to outside of the catchment.  The full story of the of what constitutes housing prices is incomplete in the regression model, so there are limitations to the analysis.   There are many more independent or explanatory variables to consider.  For example, parking in a garage or driveway would be a variable that was not included in the regression.  Another example might be proximity to public transportation.  These are examples of variables that can make housing prices increase.  Another thought would be to look at crime rate in the area and understand how those might negatively affect the housing prices.  Proximity to main roads might also affect home prices negatively.
-In running some correlation tests between the variables, the strongest association that was found was between Bed and sqft. at .7416.  
-```{r}
-cor(Bed,sqft)
-```
 
-I wouldn't consider them confounding to the dependent variable, because what we're trying to understand is the relationship between Price.Sold and catchment.  Being in the catchment doesn't automatically make your property larger or have more Bedrooms.  The architecture and style of homes are very consistent throughout the neighborhood.
+**Fig 1:**
+From running a summary command between the two catchment groups, you can tell that the average price of a home in the catchment is more than a home outside the catchment.  Interesting point of data is that the most expensive property sold was outside the catchment at $1.5 million.  The summary command also provides the 5-number summary of the minimum, 1st quartile, median, 3rd quartile, and maximum.
+
+**Fig 2:**
+The Welch two sample t-test gives us the average home price outside of the catchment and inside the catchment.  The ouside average price is $362,875 while inside the catchment is $522,423.  The P-value is statistically significant.
+
+
+**Fig 3:**
+The Boxplots tell the same story, but from a visual standpoint and highlight the median and the IQR.
+
+**Fig 4:**
+Examining this boxplot helps us to understand how both groups compare in terms of the size of the properties.  If the size of the property has an effect on the price, then we should look at the size of the properties in each group.  The sqft seem to be comparable, with group 1 being larger, so homes in the catchment are slightly larger.  
+While on average, the prices are higher for group 1 (in the catchment), this is not always the case as there is overlap between the two distributions.  The following section will use a regression model to test this out more formally.  It might give us more insight as to how each explanatory variable account for the overall price of the property.
+
+**Fig 5:**
+I chose the these explanatory variables, to be in line with other research papers that discuss housing value.  They were also Redfin's default categories while doing a search which made it much easier to scrape.  Since the intercept coefficient value doesn't tell us very much, and often doesn't, we'll skip that coefficient and go straight to the Bed coefficient.  For every unit increase in Bed, our Price.Sold value will go up $1,341.  Interestingly enought, Bathroom seem to be important in this model more than Bedrooms.  For every unit increase in Bathrooms, the Price.Sold increases by $41,640.  When the total sqft increases by one unit, it moves the Price.Sold up by $62.76.  And finally, when inside the catchment, houses seem to be worth $103,400 more.
+
+**Fig 6:**
+In running some correlation tests between the variables, the strongest association that was found was between Bed and sqft. at .7416.  I wouldn't consider them confounding to the dependent variable, because what we're trying to understand is the relationship between Price.Sold and catchment.  Being in the catchment doesn't automatically make your property larger or have more Bedrooms.  The architecture and style of homes are very consistent throughout the neighborhood.

@@ -211,7 +211,7 @@ $(document).ready(function () {
 
 <div id="descriptive-analysis" class="section level1">
 <h1>Descriptive Analysis</h1>
-<p>Below are the maps of the areas that are being compared. The data was scrapped from redfin.com. Filters were set to capture the following variables: Price.Sold (how much the house was sold for), Bed (number of bedrooms), Bath (number of bathrooms), sqft (square footage of house), catchment (1 = inside PAS catchment / 0 = outside of catchment). The data is for the last 3 years. There are a total of 397 observations. 197 inside the catchment and 200 outside the catchment.</p>
+<p>Below are the maps of the areas that are being compared. The data was scrapped from redfin.com. Filters were set to capture the following variables: Price.Sold (how much the house was sold for), Bed (number of bedrooms), Bath (number of bathrooms), sqft (square footage of house), catchment (1 = inside PAS catchment / 0 = outside of catchment). The data is for the last 3 years. There are a total of 397 observations (197 inside the catchment and 200 outside the catchment).</p>
 <div class="figure">
 <img src="images/pasmap.png" alt="PAS Catchment Map-redfin.com" style="width:50.0%" />
 <p class="caption">PAS Catchment Map-redfin.com</p>
@@ -220,13 +220,14 @@ $(document).ready(function () {
 <img src="images/outsite.png" alt="Outside the PAS Catchment-redfin.com" style="width:50.0%" />
 <p class="caption">Outside the PAS Catchment-redfin.com</p>
 </div>
+<p><strong>Figure 1</strong> Summary command to compare in and out of catchment.</p>
 <pre class="r"><code>summary(Price.Sold[catchment==&quot;0&quot;])</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   12100  270000  338995  362875  446250 1545000</code></pre>
 <pre class="r"><code>summary(Price.Sold[catchment==&quot;1&quot;])</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##  225000  401000  518000  522414  620000 1325000</code></pre>
-<p>From running a summary command between the two catchment groups, you can tell that the average price of a home in the catchment is more than a home outside the catchment. Interesting point of data is that the most expensive property sold was outside the catchment at $1.5 million.</p>
+<p><strong>Figure 2</strong> Welch’s 2 Sample t test to compare the two samples.</p>
 <pre class="r"><code>t.test(Price.Sold~catchment)</code></pre>
 <pre><code>## 
 ##  Welch Two Sample t-test
@@ -239,17 +240,16 @@ $(document).ready(function () {
 ## sample estimates:
 ## mean in group 0 mean in group 1 
 ##        362875.0        522413.7</code></pre>
-<p>The Welch two sample t-test gives us the average home price outside of the catchment and inside the catchment. The ouside average price is $362,875 while inside the catchment is $522,423. The P-value is statistically significant.</p>
+<p><strong>Figure 3</strong> Boxplot of data to visualize the two groups and compare Price.Sold</p>
 <pre class="r"><code>boxplot(Price.Sold ~ catchment, main=&quot;Boxplot Price.Sold In and Out of Catchment&quot;, ylab=&quot;Price.Sold&quot;, xlab=&quot;Catchment&quot;)</code></pre>
 <p><img src="data_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<p>The Boxplots tell the same story, but from a visual standpoint and highlight the median and the IQR.</p>
+<p><strong>Figure 4</strong> Boxplot of data comparing sqft between the 2 groups</p>
 <pre class="r"><code>boxplot(sqft ~ catchment, main=&quot;Boxplot of Sqft of Property In and Out of Catchment&quot;, ylab =&quot;sqft&quot;, xlab =&quot;Catchment&quot;)</code></pre>
 <p><img src="data_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p>Examining this boxplot helps us to understand how both groups compare in terms of the size of the properties. If the size of the property has an effect on the price, then we should look at the size of the properties in each group. The sqft seem to be comparable, with group 1 being larger, so homes in the catchment are slightly larger.<br />
-While on average, the prices are higher for group 1 (in the catchment), this is not always the case as there is overlap between the two distributions. The following section will use a regression model to test this out more formally. It might give us more insight as to how each explanatory variable account for the overall price of the property.</p>
 </div>
 <div id="empirical-analysis" class="section level1">
 <h1>Empirical Analysis</h1>
+<p><strong>Figure 5</strong> Linear regression model to see fit. Price.Sold controlling for explanatory variables from dataset.</p>
 <pre class="r"><code>redfinlm&lt;-lm(Price.Sold ~ Bed + Bath + sqft + catchment, data=redfin)
 summary(redfinlm)</code></pre>
 <pre><code>## 
@@ -273,7 +273,9 @@ summary(redfinlm)</code></pre>
 ## Residual standard error: 127400 on 392 degrees of freedom
 ## Multiple R-squared:  0.5404, Adjusted R-squared:  0.5358 
 ## F-statistic: 115.3 on 4 and 392 DF,  p-value: &lt; 2.2e-16</code></pre>
-<p>I chose the these explanatory variables, to be in line with other research papers that discuss housing value. They were also Redfin’s default categories while doing a search which made it much easier to scrape. Since the intercept coefficient value doesn’t tell us very much, and often doesn’t, we’ll skip that coefficient and go straight to the Bed coefficient. For every unit increase in Bed, our Price.Sold value will go up $1,341. Interestingly enought, Bathroom seem to be important in this model more than Bedrooms. For every unit increase in Bathrooms, the Price.Sold increases by $41,640. When the total sqft increases by one unit, it moves the Price.Sold up by $62.76. And finally, when inside the catchment, houses seem to be worth $103,400 more.</p>
+<p><strong>Figure 6</strong> Correlation test to see how explanatory variables compare. Correlation was highest for this pair.</p>
+<pre class="r"><code>cor(Bed,sqft)</code></pre>
+<pre><code>## [1] 0.7415807</code></pre>
 </div>
 
 
