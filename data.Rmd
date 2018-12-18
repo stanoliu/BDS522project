@@ -33,17 +33,7 @@ Boxplot of data comparing sqft between the 2 groups
 boxplot(sqft ~ catchment, main="Boxplot of Sqft of Property In and Out of Catchment", ylab ="sqft", xlab ="Catchment")
 ```
 
-
-
-# Empirical Analysis
 **Figure 5**
-Linear regression model to see fit.  Price.Sold controlling for explanatory variables from dataset.
-```{r}
-redfinlm<-lm(Price.Sold ~ Bed + Bath + sqft + catchment, data=redfin)
-summary(redfinlm)
-```
-
-**Figure 6**
 Correlation test to see how explanatory variables compare.  Correlation was highest for this pair.
 ```{r}
 cor(Bed,sqft)

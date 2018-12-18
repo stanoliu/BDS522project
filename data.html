@@ -246,34 +246,7 @@ $(document).ready(function () {
 <p><strong>Figure 4</strong> Boxplot of data comparing sqft between the 2 groups</p>
 <pre class="r"><code>boxplot(sqft ~ catchment, main=&quot;Boxplot of Sqft of Property In and Out of Catchment&quot;, ylab =&quot;sqft&quot;, xlab =&quot;Catchment&quot;)</code></pre>
 <p><img src="data_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-</div>
-<div id="empirical-analysis" class="section level1">
-<h1>Empirical Analysis</h1>
-<p><strong>Figure 5</strong> Linear regression model to see fit. Price.Sold controlling for explanatory variables from dataset.</p>
-<pre class="r"><code>redfinlm&lt;-lm(Price.Sold ~ Bed + Bath + sqft + catchment, data=redfin)
-summary(redfinlm)</code></pre>
-<pre><code>## 
-## Call:
-## lm(formula = Price.Sold ~ Bed + Bath + sqft + catchment, data = redfin)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -760019  -68349    8023   65711  518439 
-## 
-## Coefficients:
-##              Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 1.389e+05  1.618e+04   8.586  &lt; 2e-16 ***
-## Bed         1.341e+03  5.324e+03   0.252    0.801    
-## Bath        4.164e+04  6.993e+03   5.954 5.81e-09 ***
-## sqft        6.276e+01  8.827e+00   7.110 5.54e-12 ***
-## catchment1  1.034e+05  1.319e+04   7.841 4.27e-14 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 127400 on 392 degrees of freedom
-## Multiple R-squared:  0.5404, Adjusted R-squared:  0.5358 
-## F-statistic: 115.3 on 4 and 392 DF,  p-value: &lt; 2.2e-16</code></pre>
-<p><strong>Figure 6</strong> Correlation test to see how explanatory variables compare. Correlation was highest for this pair.</p>
+<p><strong>Figure 5</strong> Correlation test to see how explanatory variables compare. Correlation was highest for this pair.</p>
 <pre class="r"><code>cor(Bed,sqft)</code></pre>
 <pre><code>## [1] 0.7415807</code></pre>
 </div>

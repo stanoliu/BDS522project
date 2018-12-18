@@ -215,8 +215,35 @@ $(document).ready(function () {
 <p><strong>Fig 3:</strong> The Boxplots tell the same story, but from a visual standpoint and highlight the median and the IQR.</p>
 <p><strong>Fig 4:</strong> Examining this boxplot helps us to understand how both groups compare in terms of the size of the properties. If the size of the property has an effect on the price, then we should look at the size of the properties in each group. The sqft seem to be comparable, with group 1 being larger, so homes in the catchment are slightly larger.<br />
 While on average, the prices are higher for group 1 (in the catchment), this is not always the case as there is overlap between the two distributions. The following section will use a regression model to test this out more formally. It might give us more insight as to how each explanatory variable account for the overall price of the property.</p>
-<p><strong>Fig 5:</strong> I chose the these explanatory variables, to be in line with other research papers that discuss housing value. They were also Redfin’s default categories while doing a search which made it much easier to scrape. Since the intercept coefficient value doesn’t tell us very much, and often doesn’t, we’ll skip that coefficient and go straight to the Bed coefficient. For every unit increase in Bed, our Price.Sold value will go up $1,341. Interestingly enought, Bathroom seem to be important in this model more than Bedrooms. For every unit increase in Bathrooms, the Price.Sold increases by $41,640. When the total sqft increases by one unit, it moves the Price.Sold up by $62.76. And finally, when inside the catchment, houses seem to be worth $103,400 more.</p>
-<p><strong>Fig 6:</strong> In running some correlation tests between the variables, the strongest association that was found was between Bed and sqft. at .7416. I wouldn’t consider them confounding to the dependent variable, because what we’re trying to understand is the relationship between Price.Sold and catchment. Being in the catchment doesn’t automatically make your property larger or have more Bedrooms. The architecture and style of homes are very consistent throughout the neighborhood.</p>
+<p><strong>Fig 5:</strong> In running some correlation tests between the variables, the strongest association that was found was between Bed and sqft. at .7416. I wouldn’t consider them confounding to the dependent variable, because what we’re trying to understand is the relationship between Price.Sold and catchment. Being in the catchment doesn’t automatically make your property larger or have more Bedrooms. The architecture and style of homes are very consistent throughout the neighborhood.</p>
+<div id="empirical-analysis" class="section level1">
+<h1>Empirical Analysis</h1>
+<p>Linear regression model to see fit. Price.Sold controlling for explanatory variables from dataset.</p>
+<pre class="r"><code>redfinlm&lt;-lm(Price.Sold ~ Bed + Bath + sqft + catchment, data=redfin)
+summary(redfinlm)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Price.Sold ~ Bed + Bath + sqft + catchment, data = redfin)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -760019  -68349    8023   65711  518439 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 1.389e+05  1.618e+04   8.586  &lt; 2e-16 ***
+## Bed         1.341e+03  5.324e+03   0.252    0.801    
+## Bath        4.164e+04  6.993e+03   5.954 5.81e-09 ***
+## sqft        6.276e+01  8.827e+00   7.110 5.54e-12 ***
+## catchment1  1.034e+05  1.319e+04   7.841 4.27e-14 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 127400 on 392 degrees of freedom
+## Multiple R-squared:  0.5404, Adjusted R-squared:  0.5358 
+## F-statistic: 115.3 on 4 and 392 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>I chose the these explanatory variables, to be in line with other research papers that discuss housing value. They were also Redfin’s default categories while doing a search which made it much easier to scrape. Since the intercept coefficient value doesn’t tell us very much, and often doesn’t, we’ll skip that coefficient and go straight to the Bed coefficient. For every unit increase in Bed, our Price.Sold value will go up $1,341. Interestingly enought, Bathroom seem to be important in this model more than Bedrooms. For every unit increase in Bathrooms, the Price.Sold increases by $41,640. When the total sqft increases by one unit, it moves the Price.Sold up by $62.76. And finally, when inside the catchment, houses seem to be worth $103,400 more.</p>
+</div>
 
 
 
